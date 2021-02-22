@@ -45,4 +45,15 @@ public class ProductosCRUD {
          manager.getTransaction().begin();
         q.executeUpdate();
     }
+    
+     public static int borrarProducto(int id) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("com.mycompany_productosCRUD_war_1.0-SNAPSHOTPU");
+        EntityManager manager = factory.createEntityManager();
+        String sql = "DELETE from productos WHERE id = " + id;
+        Query q = manager.createNativeQuery(sql);
+        manager.getTransaction().begin();
+        int filasAfectadas = q.executeUpdate(); //para las consultas de modif. datos se usa el método executeUpdate
+        manager.getTransaction().commit();
+        return filasAfectadas;
+    }
 }

@@ -34,7 +34,6 @@ public class servletProductos extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Productos prod = ProductosCRUD.getProducto(1);
         try {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -44,11 +43,16 @@ public class servletProductos extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             List<Productos> misProductos = ProductosCRUD.getProductos();
-            for(Productos p:  misProductos){
-              out.println("<p>"+p.getNombre()+"</p>");  
+            for(Productos p1:  misProductos){
+              out.println("<p>"+p1.getNombre()+"</p>");  
             }
-            ProductosCRUD.insertarProducto();
-             out.println("<p>Producto:  " +  prod.getNombre());
+            out.println("<p>Borrando producto con id 4...</p>");
+            ProductosCRUD.borrarProducto(4);
+            out.println("<p>Mostrando de nuevo los datos...</p>");
+            List<Productos> misProductos2 = ProductosCRUD.getProductos();
+            for (Productos p2 : misProductos2) {
+                out.println("<p>" +p2.getNombre() + "</p>");
+            }
             out.println("</body>");
             out.println("</html>");
         } finally {
