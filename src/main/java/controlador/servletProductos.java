@@ -43,16 +43,32 @@ public class servletProductos extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             List<Productos> misProductos = ProductosCRUD.getProductos();
+            out.println("<table>");
             for(Productos p1:  misProductos){
               out.println("<p>"+p1.getNombre()+"</p>");  
             }
-            out.println("<p>Borrando producto con id 4...</p>");
+            Productos producto = new Productos();
+            producto.setNombre("Espinacas");
+            producto.setPrecio(10);
+            producto.setImagen("espinacas.jpg");
+            producto.setCategoria("complementos");
+            
+            Productos pact = new Productos();
+            pact.setId(12);
+            pact.setNombre("Tarta de limon");
+            pact.setPrecio(10);
+            pact.setImagen("tarta.jpg");
+            pact.setCategoria("complementos");
+            
+            ProductosCRUD.insertProduct(producto);
+            ProductosCRUD.actualizaProducto(pact);
+            /*out.println("<p>Borrando producto con id 4...</p>");
             ProductosCRUD.borrarProducto(4);
             out.println("<p>Mostrando de nuevo los datos...</p>");
             List<Productos> misProductos2 = ProductosCRUD.getProductos();
             for (Productos p2 : misProductos2) {
                 out.println("<p>" +p2.getNombre() + "</p>");
-            }
+            }*/
             out.println("</body>");
             out.println("</html>");
         } finally {
