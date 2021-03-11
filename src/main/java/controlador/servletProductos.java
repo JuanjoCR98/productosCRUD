@@ -20,6 +20,7 @@ import modelo.ProductosCRUD;
  * @author DAW-B
  */
 public class servletProductos extends HttpServlet {
+    private int id;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -54,26 +55,40 @@ public class servletProductos extends HttpServlet {
             }
             if ( op.equals("insert1")) { //cuando le indicamos que vaya a insertar
                  request.getRequestDispatcher("insert.jsp").forward(request, response);
-
             }
-
-            if ( op.equals("insert2")) { //cuando recibe los datos de la inserción
+            if ( op.equals("insert2")) { //cuando le indicamos que vaya a insertar
+                
                     Productos miProducto = new Productos();
                     miProducto.setNombre(request.getParameter("nombre"));
                     miProducto.setImagen(request.getParameter("imagen"));
                     miProducto.setCategoria(request.getParameter("categoria"));
                     String precio=request.getParameter("precio");
                     miProducto.setPrecio(Float.parseFloat(precio));
-                    ProductosCRUD.insertProduct(miProducto);
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    ProductosCRUD.insertaProducto(miProducto);
+                    out.println("<h1>Proucto insertado " + "<a href='index.jsp'>Volver</a>" + "</h1>");
             }
               if ( op.equals("borrar")) { //cuando le indicamos que vaya a insertar
-                  int id = Integer.parseInt(request.getParameter("id"));
+                  id = Integer.parseInt(request.getParameter("id"));
                   if(ProductosCRUD.borrarProducto(id)>0){
                       request.getRequestDispatcher("index.jsp").forward(request, response);
                   }
-                 
-
+            }
+            if (op.equals("update1")) {
+                id = Integer.parseInt(request.getParameter("id"));
+                Productos miProducto = ProductosCRUD.getProducto(id);
+                System.out.println("miProducto " + miProducto.getNombre());
+                request.setAttribute("miProducto",miProducto);
+                request.getRequestDispatcher("update.jsp").forward(request, response);
+            }
+               if (op.equals("update2")) {
+                String nombre = request.getParameter("nombre");
+                String imagen = request.getParameter("imagen");
+                String categoria = request.getParameter("categoria");
+                float precio = Float.parseFloat(request.getParameter("precio"));
+                Productos miProducto = new Productos(id,nombre,imagen,categoria,precio);
+                int filas = ProductosCRUD.actualizaProducto(miProducto);
+                out.println("<h3>Se ha actualizado correctamente</h3>");
+                out.println("<h4>"+filas+" filas actualizadas</h4>");
             }
             /*Productos pact = new Productos();
             pact.setId(12);

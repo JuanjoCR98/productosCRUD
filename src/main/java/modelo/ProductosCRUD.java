@@ -45,7 +45,7 @@ public class ProductosCRUD {
          manager.getTransaction().begin();
         q.executeUpdate();
     }
-    
+
      public static int borrarProducto(int id) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("com.mycompany_productosCRUD_war_1.0-SNAPSHOTPU");
         EntityManager manager = factory.createEntityManager();
@@ -102,8 +102,7 @@ public class ProductosCRUD {
         //manager.close();
         return filasAfectadas;
     }
-   
-    public static void insertProduct(Productos producto) {
+    public static void insertaProducto(Productos producto) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("com.mycompany_productosCRUD_war_1.0-SNAPSHOTPU");
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
